@@ -49,7 +49,7 @@ public class ServiceUsuario {
 	
 	
 	/**
-	 * Esse m�todo lista todas pessoas cadastradas na base
+	 * Esse método lista todas pessoas cadastradas na base
 	 * */
 	@GET
 	@Produces("application/json; charset=UTF-8")
