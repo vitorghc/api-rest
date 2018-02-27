@@ -16,42 +16,40 @@ public class UsuarioRepository {
 
 	public UsuarioRepository() {
 
-		this.entityManagerFactory = Persistence.createEntityManagerFactory("minha-persistence-unit");
+		this.entityManagerFactory = Persistence
+				.createEntityManagerFactory("minha-persistence-unit");
 		this.entityManager = this.entityManagerFactory.createEntityManager();
 	}
-	
-	
-	//CRIANDO NOVO REGISTRO NO BANCO
-	public void salvar(Usuario usuario){
+
+	// CRIANDO NOVO REGISTRO NO BANCO
+	public void salvar(Usuario usuario) {
 		this.entityManager.getTransaction().begin();
 		this.entityManager.persist(usuario);
 		this.entityManager.getTransaction().commit();
 	}
-	
-	//ALTERANDO UM REGISTRO EXISTENTE
-	public void alterar(Usuario usuario){
-		 
+
+	// ALTERANDO UM REGISTRO EXISTENTE
+	public void alterar(Usuario usuario) {
+
 		this.entityManager.getTransaction().begin();
 		this.entityManager.merge(usuario);
 		this.entityManager.getTransaction().commit();
 	}
-	
-	
-	//RETORNA TODAS AS PESSOAS CADASTRADAS NO BANCO DE DADOS 
+
+	// RETORNA TODAS AS PESSOAS CADASTRADAS NO BANCO DE DADOS
 	@SuppressWarnings("unchecked")
-	public List<Usuario> TodasPessoas(){
- 
-		return this.entityManager.createQuery("SELECT u FROM Usuario u ORDER BY u.nome").getResultList();
+	public List<Usuario> getAllPeople() {
+
+		return this.entityManager.createQuery(
+				"SELECT u FROM Estoque u ORDER BY u.nome").getResultList();
 	}
-	
-	
-	
-	//CONSULTA UMA PESSOA CADASTRA PELO CÓDIGO
-	public Usuario GetPessoa(Integer codigo){
- 
+
+	// CONSULTA UMA PESSOA CADASTRA PELO CÃ“DIGO
+	public Usuario GetPessoa(Integer codigo) {
+
 		return this.entityManager.find(Usuario.class, codigo);
 	}
-	
+
 	public void excluir(Integer codigo) {
 		Usuario usuario = this.GetPessoa(codigo);
 
@@ -60,6 +58,5 @@ public class UsuarioRepository {
 		this.entityManager.getTransaction().commit();
 
 	}
-
 
 }

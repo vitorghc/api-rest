@@ -11,9 +11,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.com.javaws.ws.rest.entity.Usuario;
-import br.com.javaws.ws.rest.http.UsuarioResponse;
 import br.com.javaws.ws.rest.repository.UsuarioRepository;
 
 @Path("/serviceUsuario")
@@ -21,16 +22,15 @@ public class ServiceUsuario {
 
 	private final UsuarioRepository repository = new UsuarioRepository();
 
-	
 	/**
 	 * @param usuario
 	 * @return String
 	 */
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.TEXT_PLAIN })
 	@Path("/cadastrar")
-	public String cadastrar(UsuarioResponse usuario) {
+	public Response cadastrar(Usuario usuario) {
 
 		Usuario entity = new Usuario();
 
@@ -41,54 +41,53 @@ public class ServiceUsuario {
 
 			repository.salvar(entity);
 
-			return "Registro cadastrado com sucesso";
+			return Response.ok("Registro cadastrado com sucesso" + "usuario: " + usuario.getNome()).build();
 		} catch (Exception e) {
-			return "Erro ao cadastrar um registro " + e.getMessage();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
-	
+
 	/**
 	 * Esse método lista todas pessoas cadastradas na base
 	 * */
 	@GET
-	@Produces("application/json; charset=UTF-8")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	@Path("/todasPessoas")
-	public List<UsuarioResponse> todasPessoas(){
- 
-		List<UsuarioResponse> pessoas =  new ArrayList<UsuarioResponse>();
- 
-		List<Usuario> listaEntityPessoas = repository.TodasPessoas();
- 
+	public List<Usuario> todasPessoas() {
+
+		List<Usuario> pessoas = new ArrayList<Usuario>();
+
+		List<Usuario> listaEntityPessoas = repository.getAllPeople();
+
 		for (Usuario entity : listaEntityPessoas) {
- 
-			pessoas.add(new UsuarioResponse(entity.getCodigo(), entity.getNome(),entity.getPassword()));
+
+			pessoas.add(new Usuario(entity.getCodigo(), entity.getNome(),
+					entity.getPassword()));
 		}
- 
+
 		return pessoas;
 	}
-	
-	
+
 	/**
 	 * Excluindo uma pessoa pelo código
 	 * */
 	@DELETE
-	@Produces("application/json; charset=UTF-8")
-	@Path("/excluir/{codigo}")	
-	public String excluir(@PathParam("codigo") Integer codigo){
- 
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.TEXT_PLAIN })
+	@Path("/excluir/{codigo}")
+	public Response excluir(@PathParam("codigo") Integer codigo) {
+
 		try {
- 
+
 			repository.excluir(codigo);
- 
-			return "Registro excluido com sucesso!";
- 
+
+			return Response.ok("Registro excluido com sucesso! " + "Código do usuario: " + codigo).build();
+
 		} catch (Exception e) {
- 
-			return "Erro ao excluir o registro! " + e.getMessage();
+
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
- 
+
 	}
- 
 
 }

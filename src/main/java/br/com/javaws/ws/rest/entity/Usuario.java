@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "Usuario")
 public class Usuario {
@@ -21,6 +23,19 @@ public class Usuario {
 
 	@Column(name = "password")
 	private String password;
+	
+	
+	public Usuario(int codigo, String nome, String password) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.password = password;
+	}
+	
+	public Usuario() {
+	}
+	
+	
 
 	public String getNome() {
 		return nome;
