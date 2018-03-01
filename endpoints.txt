@@ -1,0 +1,9 @@
+########### ENDPOINTS ###########
+
+cadastrar.usuario = http://localhost:8080/RestJR/rest/serviceUsuario/cadastrar
+excluir.usuario = http://localhost:8080/RestJR/rest/serviceUsuario/excluir/1
+todasPessoas = http://localhost:8080/RestJR/rest/serviceUsuario/todasPessoas
+
+cadastrar.estoque = http://localhost:8080/RestJR/rest/serviceEstoque/cadastrar
+excluir.estoque = http://localhost:8080/RestJR/rest/serviceEstoque/excluir/1
+todosItens = http://localhost:8080/RestJR/rest/serviceEstoque/todosItens

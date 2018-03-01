@@ -15,8 +15,8 @@ public class Estoque {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codigo")
-	private Integer codigo;
+	@Column(name = "id")
+	private Integer id;
 
 	@Column(name = "label")
 	private String label;
@@ -30,13 +30,21 @@ public class Estoque {
 	public Estoque(int codigo, String label, String description,
 			boolean alcoolic) {
 		super();
-		this.codigo = codigo;
+		this.id = codigo;
 		this.label = label;
 		this.description = description;
 		this.alcoolic = alcoolic;
 	}
 
 	public Estoque() {
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getLabel() {

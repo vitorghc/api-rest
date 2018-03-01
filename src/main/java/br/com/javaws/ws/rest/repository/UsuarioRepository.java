@@ -39,9 +39,9 @@ public class UsuarioRepository {
 	// RETORNA TODAS AS PESSOAS CADASTRADAS NO BANCO DE DADOS
 	@SuppressWarnings("unchecked")
 	public List<Usuario> getAllPeople() {
-
+	
 		return this.entityManager.createQuery(
-				"SELECT u FROM Estoque u ORDER BY u.nome").getResultList();
+				"SELECT u FROM Usuario u ORDER BY u.nome").getResultList();
 	}
 
 	// CONSULTA UMA PESSOA CADASTRA PELO CÓDIGO
