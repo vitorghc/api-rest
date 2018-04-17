@@ -51,11 +51,14 @@ public class UsuarioRepository {
 	}
 
 	public void excluir(Integer codigo) {
-		Usuario usuario = this.GetPessoa(codigo);
+		if (codigo != null) {
+			Usuario usuario = this.GetPessoa(codigo);
 
-		this.entityManager.getTransaction().begin();
-		this.entityManager.remove(usuario);
-		this.entityManager.getTransaction().commit();
+			this.entityManager.getTransaction().begin();
+			this.entityManager.remove(usuario);
+			this.entityManager.getTransaction().commit();
+		}
+		throw new NullPointerException("Código Vazio");
 
 	}
 
