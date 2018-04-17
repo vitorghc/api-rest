@@ -2,13 +2,6 @@ package br.com.javaws.w.rest.service;
 
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
-
-
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,15 +26,18 @@ public class ServiceUsuarioTest {
 	}
 
 	@Test
-	public void nãoDeveExcluirPessoasSemCodigo() {
+	public void nãoDeveExcluirPessoasSemCodigo() throws NullPointerException {
 		// cenario
 		Integer code = null;
 
 		// acao
-		repository.excluir(code);
+		try {
+			repository.excluir(code);
+			Assert.fail();
+		} catch (NullPointerException e) {
+			Assert.assertThat(e.getMessage(), CoreMatchers.is("Código Vazio"));
+		}
 
-		Assert.assertThat(code, CoreMatchers.is("Código Vazio"));
 	}
 
 }
-
