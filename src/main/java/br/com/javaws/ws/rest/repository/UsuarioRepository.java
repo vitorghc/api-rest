@@ -23,9 +23,12 @@ public class UsuarioRepository {
 
 	// CRIANDO NOVO REGISTRO NO BANCO
 	public void salvar(Usuario usuario) {
-		this.entityManager.getTransaction().begin();
-		this.entityManager.persist(usuario);
-		this.entityManager.getTransaction().commit();
+		if (usuario != null) {
+			this.entityManager.getTransaction().begin();
+			this.entityManager.persist(usuario);
+			this.entityManager.getTransaction().commit();
+		}
+		throw new NullPointerException();
 	}
 
 	// ALTERANDO UM REGISTRO EXISTENTE
@@ -39,7 +42,7 @@ public class UsuarioRepository {
 	// RETORNA TODAS AS PESSOAS CADASTRADAS NO BANCO DE DADOS
 	@SuppressWarnings("unchecked")
 	public List<Usuario> getAllPeople() {
-	
+
 		return this.entityManager.createQuery(
 				"SELECT u FROM Usuario u ORDER BY u.nome").getResultList();
 	}

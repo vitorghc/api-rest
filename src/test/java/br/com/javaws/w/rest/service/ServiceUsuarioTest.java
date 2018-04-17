@@ -40,4 +40,20 @@ public class ServiceUsuarioTest {
 
 	}
 
+	@Test
+	public void cadastroUsuario() throws NullPointerException{
+		// cenario
+		Usuario usu = new Usuario(1, "Vitor", "123");
+
+		try {
+			//acao
+			repository.salvar(usu);
+			Assert.fail();			
+		} catch (Exception e) {
+			// verificacao
+			Assert.assertTrue(usu != null);
+		}
+		
+	}
+
 }
